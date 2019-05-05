@@ -7,6 +7,9 @@ import SearchBox from './SearchBox';
 // data 
 import { robots } from './robots';
 
+// css 
+import './App.css';
+
 class App extends Component {
   // using STATE
   constructor() {
@@ -31,7 +34,7 @@ class App extends Component {
     })
     return (
       <div className="tc">
-        <h1> RoboFriends </h1>
+        <h1 className="f1"> RoboFriends </h1>
         <SearchBox searchChange={ this.onSearchChange }></SearchBox>
         { /* on try ( 1 ) */ }
         {/* <CardList robots={ this.state.robots }></CardList> */}
