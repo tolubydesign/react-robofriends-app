@@ -1,14 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import Hello from './Hello';
 import * as serviceWorker from './serviceWorker';
+
+// components
+import CardList from './CardList'
 
 // utils
 import 'tachyons';
 
-ReactDOM.render(<Hello greeting={"Hello " + "react Ninja"} />, document.getElementById('root'));
+// data 
+import { robots } from './robots';
+
+ReactDOM.render(
+  <CardList robots={robots}></CardList>
+,document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
