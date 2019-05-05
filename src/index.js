@@ -4,7 +4,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 // components
-import App from './App'
+import App from './containers/App'
 
 // utils
 import 'tachyons';
