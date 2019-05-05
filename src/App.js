@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // component
 import CardList from './CardList';
 import SearchBox from './SearchBox';
+import Scroll from './Scroll';
 
 // data 
 import { robots } from './robots';
@@ -51,7 +52,9 @@ class App extends Component {
           <SearchBox searchChange={ this.onSearchChange }></SearchBox>
           { /* on try ( 1 ) */ }
           {/* <CardList robots={ this.state.robots }></CardList> */}
-          <CardList robots={ filteredRobots }></CardList>
+          <Scroll>
+            <CardList robots={ filteredRobots }></CardList>
+          </Scroll>
         </div>
       );
     }
