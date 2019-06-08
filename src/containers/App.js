@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
 // component
 import CardList from '../components/CardList';
@@ -7,10 +8,27 @@ import Scroll from '../components/Scroll';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 // data 
-import { robots } from '../robots';
+// import { robots } from '../robots';
 
 // css 
 import './App.css';
+
+// actions
+import { setSearchField } from '../actions';
+
+/* maps out the props */
+const mapStateToProps = state => {
+  return {
+    searchField: state.searchField,
+    // searchField: state.searchRobots.searchField
+  }
+}
+/* watches for props to dispatch */
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+  }
+}
 
 class App extends Component {
   // using STATE
@@ -18,7 +36,7 @@ class App extends Component {
     super()
     this.state = {
       robots: [],
-      searchfield: '',
+      // searchfield: '',
     }
   };
 
@@ -27,23 +45,25 @@ class App extends Component {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response =>
         response.json()
-      ).then(users =>
+      ).then(users => {
         this.setState({ robots: users })
-      );
+      });
   };
 
-  onSearchChange = (event) => {
-    this.setState({ searchfield: event.target.value }); /* when you want to update the state */
-    /* on try ( 1 ) */
-    // const filteredRobots = this.state.robots.filter(robot => {
-    //   return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
-    // })
-  };
+  // onSearchChange = (event) => {
+  //   this.setState({ searchfield: event.target.value }); /* when you want to update the state */
+  //   /* on try ( 1 ) */
+  //   // const filteredRobots = this.state.robots.filter(robot => {
+  //   //   return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+  //   // })
+  // };
 
   render() {
-    const { robots, searchfield } = this.state;
+    // const { robots, searchfield } = this.state;
+    const { robots } = this.state;
+    const { searchField, onSearchChange } = this.props;
     const filteredRobots = robots.filter(robot => {
-      return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+      return robot.name.toLowerCase().includes(searchField.toLowerCase());
     })
 
     return !robots.length ?
@@ -51,7 +71,7 @@ class App extends Component {
       (
         <div className="tc">
           <h1 className="f1"> RoboFriends </h1>
-          <SearchBox searchChange={this.onSearchChange}></SearchBox>
+          <SearchBox searchChange={onSearchChange}></SearchBox>
           { /* on try ( 1 ) */}
           {/* <CardList robots={ this.state.robots }></CardList> */}
           <Scroll>
@@ -64,4 +84,6 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+// connect is a higher order function
+// ie it returns another function
